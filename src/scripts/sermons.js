@@ -13,9 +13,14 @@
             <h2>${featured.title}</h2>
             <p>${featured.scripture}</p>
             <p>${featured.speaker}</p>
-            <a class="button" href="${featured.videoUrl}" target="_blank">
-              Watch Sermon
-            </a>
+           <a
+  class="button"
+  href="${featured.videoUrl}"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  ▶ Watch on YouTube
+</a>
           </div>
         </div>
       `;
