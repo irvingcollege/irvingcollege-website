@@ -1,0 +1,40 @@
+---
+const { sermon } = Astro.props;
+---
+
+<section class="featured-sermon">
+  <div class="container">
+    <h2>Latest Message</h2>
+
+    <div class="featured-sermon-card">
+      <a href={sermon.videoUrl} target="_blank" rel="noopener noreferrer">
+        <img
+          src={sermon.thumbnail}
+          alt={sermon.title}
+          loading="lazy"
+        />
+      </a>
+
+      <div class="featured-sermon-content">
+        <h3>{sermon.title}</h3>
+
+        <p>
+          {new Date(sermon.publishedAt).toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          })}
+        </p>
+
+        <a
+          class="button"
+          href={sermon.videoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          ▶ Watch on YouTube
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
