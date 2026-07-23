@@ -51,11 +51,16 @@
         throw new Error("The sermon could not be loaded.");
       }
 
-      const sermon: SermonData = await response.json();
+      const data = await response.json();
+const sermon: SermonData = data.latestSermon;
 
-      if (sermon.error) {
-        throw new Error(sermon.error);
-      }
+      if (data.error) {
+  throw new Error(data.error);
+}
+
+if (!sermon) {
+  throw new Error("No sermon was returned.");
+}
 
       sermonContainer.innerHTML = `
         <div class="latest-sermon-video">
