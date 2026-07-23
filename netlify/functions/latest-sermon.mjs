@@ -1,5 +1,5 @@
 const CHANNEL_ID = "UCzvfQahUozA6xOzMd3uQrCQ";
-const NUMBER_OF_SERMONS = 12;
+const NUMBER_OF_SERMONS = 50;
 
 function findDescriptionField(description, fieldName) {
   if (!description) return "";
