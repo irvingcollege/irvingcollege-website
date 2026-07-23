@@ -28,8 +28,12 @@ a {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background-color: #ffffff;
+ background: rgba(255,255,255,.95);
   border-bottom: 1px solid #e8e8e8;
+  position: sticky;
+top: 0;
+z-index: 1000;
+backdrop-filter: blur(12px);
 }
 
 .header-container {
@@ -47,8 +51,9 @@ a {
 }
 
 .site-logo {
-  width: 170px;
-  height: auto;
+  height: 150px;
+  width: auto;
+  display: block;
 }
 
 .main-nav {
@@ -309,4 +314,545 @@ footer {
 
 .nursery-box p {
   margin: 0;
+}
+.welcome-section {
+  padding: 100px 24px;
+  background: #f8faf8;
+}
+
+.welcome-container {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 70px;
+  align-items: center;
+}
+
+.welcome-content h2 {
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  margin: 12px 0 24px;
+  padding-left: 18px;
+  border-left: 6px solid #3f8a66;
+}
+
+.welcome-content p:not(.section-eyebrow) {
+  font-size: 1.08rem;
+  line-height: 1.9;
+  color: #4b5563;
+  margin-bottom: 20px;
+}
+
+.welcome-verse {
+  margin: 35px 0;
+  padding: 20px 24px;
+  background: white;
+  border-left: 5px solid #3f8a66;
+  font-style: italic;
+  color: #444;
+  border-radius: 10px;
+}
+
+.welcome-verse span {
+  display: block;
+  margin-top: 10px;
+  font-style: normal;
+  font-weight: 600;
+  color: #3f8a66;
+}
+
+.welcome-photo {
+  width: 100%;
+  border-radius: 20px;
+  display: block;
+  box-shadow: 0 20px 50px rgba(0,0,0,.15);
+}
+
+.welcome-buttons {
+  margin-top: 35px;
+}
+
+.welcome-image-placeholder {
+  min-height: 420px;
+  display: grid;
+  place-items: center;
+  padding: 30px;
+  border-radius: 18px;
+  background: #eef3ef;
+  border: 2px dashed #9bad9f;
+  color: #526459;
+  font-weight: 600;
+  text-align: center;
+}
+
+@media (max-width: 800px) {
+  .welcome-section {
+    padding: 65px 20px;
+  }
+
+  .welcome-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .welcome-image {
+    order: -1;
+  }
+
+  .welcome-image-placeholder {
+    min-height: 300px;
+  }
+}
+.welcome-photo {
+  width: 100%;
+  display: block;
+  border-radius: 18px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+}
+.welcome-photo {
+  width: 100%;
+  display: block;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  object-fit: cover;
+}
+.visit-section {
+  padding: 100px 24px;
+  background: #ffffff;
+}
+
+.visit-grid {
+  width: min(1120px, 100%);
+  margin: 50px auto 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.visit-card {
+  padding: 34px;
+  background: #f8faf8;
+  border: 1px solid #e3e9e4;
+  border-radius: 16px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.visit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.09);
+}
+
+.visit-card h3 {
+  margin: 0 0 14px;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.35rem;
+  color: #26352c;
+}
+
+.visit-card p {
+  margin: 0;
+  color: #58625c;
+  line-height: 1.75;
+}
+
+.visit-callout {
+  width: min(1120px, 100%);
+  margin: 45px auto 0;
+  padding: 34px 38px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  background: #26352c;
+  color: white;
+  border-radius: 18px;
+}
+
+.visit-callout h3 {
+  margin: 5px 0 0;
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+.visit-callout .section-eyebrow {
+  color: #b8d6c4;
+}
+
+@media (max-width: 760px) {
+  .visit-section {
+    padding: 70px 20px;
+  }
+
+  .visit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .visit-callout {
+    padding: 30px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+.hope-section {
+  padding: 100px 24px;
+  background: #f7f7f4;
+}
+
+.hope-grid {
+  width: min(1120px, 100%);
+  margin: 50px auto 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+.hope-card {
+  position: relative;
+  padding: 36px 28px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e2e7e2;
+  border-radius: 18px;
+  box-shadow: 0 10px 28px rgba(33, 79, 54, 0.06);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.hope-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 38px rgba(33, 79, 54, 0.12);
+}
+
+.hope-number {
+  display: inline-block;
+  margin-bottom: 24px;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #2e6e49;
+}
+
+.hope-card h3 {
+  margin: 0 0 14px;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.35rem;
+  color: #214f36;
+}
+
+.hope-card p {
+  margin: 0;
+  color: #58625c;
+  line-height: 1.75;
+}
+
+.hope-card::after {
+  content: "";
+  position: absolute;
+  right: -35px;
+  bottom: -35px;
+  width: 90px;
+  height: 90px;
+  border: 16px solid rgba(46, 110, 73, 0.08);
+  border-radius: 50%;
+}
+
+@media (max-width: 950px) {
+  .hope-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .hope-section {
+    padding: 70px 20px;
+  }
+
+  .hope-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.ministries-section {
+  padding: 100px 24px;
+  background: #ffffff;
+}
+
+.ministries-grid {
+  width: min(1120px, 100%);
+  margin: 50px auto 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.ministry-card {
+  position: relative;
+  min-height: 400px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  border-radius: 20px;
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.14);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.ministry-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 45px rgba(0, 0, 0, 0.2);
+}
+
+.ministry-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(15, 35, 24, 0.95),
+    rgba(15, 35, 24, 0.25)
+  );
+}
+
+.ministry-content {
+  position: relative;
+  z-index: 1;
+  padding: 36px;
+  color: white;
+}
+
+.ministry-label {
+  margin: 0 0 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c4dfcf;
+}
+
+.ministry-content h3 {
+  margin: 0 0 14px;
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+}
+
+.ministry-content p {
+  max-width: 520px;
+  margin: 0 0 22px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.ministry-link {
+  display: inline-block;
+  color: white;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.ministry-link:hover {
+  text-decoration: underline;
+}
+
+.kids-ministry {
+  background-image: linear-gradient(
+    rgba(30, 60, 42, 0.15),
+    rgba(30, 60, 42, 0.15)
+  );
+  background-color: #527d60;
+}
+
+.student-ministry {
+  background-image: linear-gradient(
+    rgba(30, 60, 42, 0.15),
+    rgba(30, 60, 42, 0.15)
+  );
+  background-color: #3f6a57;
+}
+
+.servem25-ministry {
+  background-image: linear-gradient(
+    rgba(30, 60, 42, 0.15),
+    rgba(30, 60, 42, 0.15)
+  );
+  background-color: #6a8063;
+}
+
+.school-ministry {
+  background-image: linear-gradient(
+    rgba(30, 60, 42, 0.15),
+    rgba(30, 60, 42, 0.15)
+  );
+  background-color: #4b6658;
+}
+
+@media (max-width: 760px) {
+  .ministries-section {
+    padding: 70px 20px;
+  }
+
+  .ministries-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ministry-card {
+    min-height: 340px;
+  }
+
+  .ministry-content {
+    padding: 28px;
+  }
+}
+.sermon-section {
+  padding: 100px 24px;
+  background: #f7f7f4;
+}
+
+.sermon-layout {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.sermon-placeholder {
+  min-height: 390px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 16px;
+  background:
+    linear-gradient(rgba(20, 45, 30, 0.68), rgba(20, 45, 30, 0.68)),
+    url("/images/church-hero.png") center / cover no-repeat;
+  color: white;
+  border-radius: 20px;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.16);
+}
+
+.play-button {
+  width: 76px;
+  height: 76px;
+  display: grid;
+  place-items: center;
+  padding-left: 5px;
+  background: white;
+  color: #2e6e49;
+  border-radius: 50%;
+  font-size: 1.8rem;
+}
+
+.sermon-placeholder p {
+  margin: 0;
+  font-weight: 700;
+}
+
+.sermon-content h2 {
+  margin: 10px 0 12px;
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(2rem, 4vw, 3.3rem);
+  line-height: 1.15;
+  color: #214f36;
+}
+
+.sermon-series {
+  margin: 0 0 20px;
+  font-weight: 700;
+  color: #2e6e49;
+}
+
+.sermon-content > p:not(.section-eyebrow):not(.sermon-series) {
+  color: #58625c;
+  line-height: 1.8;
+}
+
+.sermon-details {
+  margin: 25px 0;
+  padding: 20px 24px;
+  background: white;
+  border-left: 5px solid #2e6e49;
+  border-radius: 10px;
+}
+
+.sermon-details p {
+  margin: 6px 0;
+}
+
+.sermon-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+@media (max-width: 800px) {
+  .sermon-section {
+    padding: 70px 20px;
+  }
+
+  .sermon-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .sermon-placeholder {
+    min-height: 300px;
+  }
+}
+.give-button {
+  padding: 11px 20px;
+  background: #2e6e49;
+  color: white !important;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.give-button:hover {
+  background: #214f36;
+  transform: translateY(-2px);
+}
+.events-section {
+  padding: 100px 24px;
+  background: #ffffff;
+}
+
+.events-embed {
+  width: min(1120px, 100%);
+  min-height: 300px;
+  margin: 50px auto 0;
+  overflow: hidden;
+  background: #f7f7f4;
+  border: 1px solid #e2e7e2;
+  border-radius: 18px;
+}
+
+.events-embed iframe {
+  width: 100%;
+  min-height: 600px;
+  border: 0;
+}
+
+.events-actions {
+  width: min(1120px, 100%);
+  margin: 30px auto 0;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  .events-section {
+    padding: 70px 20px;
+  }
+
+  .events-embed iframe {
+    min-height: 700px;
+  }
 }
