@@ -1,0 +1,122 @@
+local_backend: true
+
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+logo:
+  src: "/images/1080logo.jpg"
+  show_in_header: true
+
+editor:
+  preview: false
+
+collections:
+  - name: "homepage"
+    label: "Homepage"
+    files:
+      - name: "this_week"
+        label: "This Week at ICBC"
+        file: "src/data/this-week.json"
+        format: "json"
+
+        fields:
+          - label: "Show This Section"
+            name: "enabled"
+            widget: "boolean"
+
+          - label: "Small Heading"
+            name: "eyebrow"
+            widget: "string"
+
+          - label: "Main Heading"
+            name: "heading"
+            widget: "string"
+
+          - label: "Introduction"
+            name: "introduction"
+            widget: "text"
+
+          - label: "Sunday Worship"
+            name: "sermon"
+            widget: "object"
+
+            fields:
+              - label: "Title"
+                name: "title"
+                widget: "string"
+
+              - label: "Description"
+                name: "description"
+                widget: "text"
+
+              - label: "Time"
+                name: "time"
+                widget: "string"
+
+          - label: "Wednesday Meal"
+            name: "wednesdayMeal"
+            widget: "object"
+
+            fields:
+              - label: "Title"
+                name: "title"
+                widget: "string"
+
+              - label: "Description"
+                name: "description"
+                widget: "text"
+
+              - label: "Time"
+                name: "time"
+                widget: "string"
+
+              - label: "Meal Menu"
+                name: "menu"
+                widget: "string"
+
+          - label: "Wednesday Bible Study"
+            name: "bibleStudy"
+            widget: "object"
+
+            fields:
+              - label: "Title"
+                name: "title"
+                widget: "string"
+
+              - label: "Description"
+                name: "description"
+                widget: "text"
+
+              - label: "Time"
+                name: "time"
+                widget: "string"
+
+          - label: "Featured Announcement"
+            name: "announcement"
+            widget: "object"
+
+            fields:
+              - label: "Title"
+                name: "title"
+                widget: "string"
+
+              - label: "Description"
+                name: "description"
+                widget: "text"
+
+          - label: "Memory Verse"
+            name: "memoryVerse"
+            widget: "object"
+
+            fields:
+              - label: "Bible Reference"
+                name: "reference"
+                widget: "string"
+
+              - label: "Verse Text"
+                name: "text"
+                widget: "text"

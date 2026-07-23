@@ -1,6 +1,7 @@
 ---
 const { title = "Independent Christian Baptist Church" } = Astro.props;
 import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 ---
 
@@ -24,9 +25,13 @@ import "../styles/global.css";
   <body>
  <Header />
 
-    <main>
-      <slot />
-    </main>
+<main>
+
+  <slot />
+
+</main>
+
+<Footer />
 
     <footer>
       <p>&copy; {new Date().getFullYear()} Independent Christian Baptist Church</p>

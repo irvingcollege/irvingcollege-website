@@ -1,0 +1,64 @@
+---
+import weeklyInfo from "../data/this-week.json";
+
+const {
+  enabled,
+  eyebrow,
+  heading,
+  introduction,
+  sermon,
+  wednesdayMeal,
+  bibleStudy,
+  announcement,
+  memoryVerse
+} = weeklyInfo;
+---
+
+{
+  enabled && (
+    <section class="this-week-section">
+      <div class="this-week-container">
+        <div class="section-heading">
+          <p class="section-eyebrow">{eyebrow}</p>
+          <h2>{heading}</h2>
+          <p>{introduction}</p>
+        </div>
+
+        <div class="this-week-grid">
+          <article class="this-week-card">
+            <p class="this-week-label">Sunday</p>
+            <h3>{sermon.title}</h3>
+            <p>{sermon.description}</p>
+            <strong>{sermon.time}</strong>
+          </article>
+
+          <article class="this-week-card">
+            <p class="this-week-label">Wednesday Meal</p>
+            <h3>{wednesdayMeal.title}</h3>
+            <p>{wednesdayMeal.description}</p>
+            <strong>{wednesdayMeal.time}</strong>
+            <p class="meal-menu">{wednesdayMeal.menu}</p>
+          </article>
+
+          <article class="this-week-card">
+            <p class="this-week-label">Bible Study</p>
+            <h3>{bibleStudy.title}</h3>
+            <p>{bibleStudy.description}</p>
+            <strong>{bibleStudy.time}</strong>
+          </article>
+
+          <article class="this-week-card announcement-card">
+            <p class="this-week-label">Announcement</p>
+            <h3>{announcement.title}</h3>
+            <p>{announcement.description}</p>
+          </article>
+        </div>
+
+        <blockquote class="weekly-verse">
+          <p>“{memoryVerse.text}”</p>
+          <cite>{memoryVerse.reference}</cite>
+        </blockquote>
+      </div>
+    </section>
+  )
+}

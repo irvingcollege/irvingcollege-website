@@ -1,0 +1,30 @@
+{
+  "enabled": true,
+  "eyebrow": "This Week at ICBC",
+  "heading": "Stay Connected This Week",
+  "introduction": "Here are a few important things happening this week at Irving College Baptist Church.",
+  "sermon": {
+    "title": "Sunday Morning Worship",
+    "description": "Join us as we worship together and study God's Word.",
+    "time": "Sunday at 10:30 AM"
+  },
+  "wednesdayMeal": {
+    "title": "Wednesday Fellowship Meal",
+    "description": "Come enjoy a meal and fellowship before Bible study.",
+    "time": "Wednesday at 5:30 PM",
+    "menu": "Menu coming soon"
+  },
+  "bibleStudy": {
+    "title": "Wednesday Bible Study",
+    "description": "Bible study opportunities are available for adults, students, and children.",
+    "time": "Wednesday at 6:30 PM"
+  },
+  "announcement": {
+    "title": "Church Announcement",
+    "description": "Check back soon for this week's featured announcement."
+  },
+  "memoryVerse": {
+    "reference": "Romans 15:13",
+    "text": "May the God of hope fill you with all joy and peace in believing."
+  }
+}

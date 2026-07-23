@@ -962,3 +962,381 @@ footer {
     text-align: center;
   }
 }
+.site-footer {
+  background: #1b2e22;
+  color: white;
+  padding: 80px 24px 30px;
+}
+
+.footer-container {
+  width: min(1120px, 100%);
+  margin: auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.3fr;
+  gap: 50px;
+}
+
+.footer-logo {
+  width: 90px;
+  margin-bottom: 20px;
+}
+
+.footer-brand h3 {
+  margin-bottom: 8px;
+  font-family: "Poppins", sans-serif;
+}
+
+.footer-brand p {
+  color: #d7dfd9;
+  line-height: 1.7;
+}
+
+.footer-social {
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.footer-social a,
+.footer-column a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.footer-social a:hover,
+.footer-column a:hover {
+  color: #9bd3a7;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-column h4 {
+  margin-bottom: 16px;
+  font-family: "Poppins", sans-serif;
+}
+
+.footer-column p,
+.footer-column a {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.footer-bottom {
+  margin-top: 60px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,.15);
+  text-align: center;
+  color: #d7dfd9;
+}
+
+@media (max-width: 900px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .footer-social {
+    justify-content: center;
+  }
+}
+/* Church Center Page */
+
+.church-center-hero {
+  padding: 130px 24px;
+  color: #ffffff;
+  text-align: center;
+  background:
+    linear-gradient(rgba(20, 47, 31, 0.88), rgba(20, 47, 31, 0.88)),
+    url("/images/church-hero.png") center / cover no-repeat;
+}
+
+.church-center-hero-content {
+  width: min(800px, 100%);
+  margin: 0 auto;
+}
+
+.church-center-hero h1 {
+  max-width: 780px;
+  margin: 10px auto 20px;
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(2.7rem, 7vw, 5rem);
+  line-height: 1.05;
+}
+
+.church-center-hero p:not(.section-eyebrow) {
+  max-width: 720px;
+  margin: 0 auto 32px;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.church-center-options {
+  padding: 100px 24px;
+  background: #f5f7f3;
+}
+
+.church-center-container {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+}
+
+.church-center-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 50px;
+}
+
+.church-center-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 310px;
+  padding: 34px;
+  background: #ffffff;
+  border: 1px solid #e0e7e1;
+  border-radius: 18px;
+  box-shadow: 0 12px 35px rgba(25, 55, 35, 0.07);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.church-center-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 45px rgba(25, 55, 35, 0.12);
+}
+
+.church-center-icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 24px;
+  color: #ffffff;
+  background: #2e6e49;
+  border-radius: 14px;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.church-center-card h3 {
+  margin: 0 0 12px;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.3rem;
+}
+
+.church-center-card p {
+  margin: 0 0 24px;
+  line-height: 1.75;
+  color: #59645c;
+}
+
+.church-center-card a {
+  margin-top: auto;
+  color: #2e6e49;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.church-center-card a:hover {
+  text-decoration: underline;
+}
+
+.church-center-app {
+  padding: 80px 24px;
+  color: #ffffff;
+  background: #1b2e22;
+}
+
+.church-center-app-content {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+}
+
+.church-center-app-content div {
+  max-width: 720px;
+}
+
+.church-center-app h2 {
+  margin: 8px 0 14px;
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.15;
+}
+
+.church-center-app p:not(.section-eyebrow) {
+  margin: 0;
+  color: #d7dfd9;
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+
+@media (max-width: 900px) {
+  .church-center-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .church-center-app-content {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 620px) {
+  .church-center-hero {
+    padding: 95px 20px;
+  }
+
+  .church-center-options {
+    padding: 70px 20px;
+  }
+
+  .church-center-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .church-center-card {
+    min-height: auto;
+  }
+
+  .church-center-app {
+    padding: 65px 20px;
+  }
+
+  .church-center-app-content .primary-button {
+    width: 100%;
+    text-align: center;
+  }
+}
+/* This Week at ICBC */
+
+.this-week-section {
+  padding: 100px 24px;
+  background: #ffffff;
+}
+
+.this-week-container {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+}
+
+.this-week-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  margin-top: 48px;
+}
+
+.this-week-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 285px;
+  padding: 30px;
+  background: #f5f7f3;
+  border: 1px solid #dfe6df;
+  border-radius: 18px;
+}
+
+.this-week-label {
+  margin: 0 0 14px;
+  color: #2e6e49;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.this-week-card h3 {
+  margin: 0 0 14px;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.3;
+}
+
+.this-week-card p:not(.this-week-label):not(.meal-menu) {
+  margin: 0 0 20px;
+  color: #59645c;
+  line-height: 1.7;
+}
+
+.this-week-card strong {
+  margin-top: auto;
+  color: #1b2e22;
+}
+
+.meal-menu {
+  margin: 14px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid #d4ddd5;
+  color: #2e6e49;
+  font-weight: 700;
+}
+
+.announcement-card {
+  color: #ffffff;
+  background: #1b2e22;
+  border-color: #1b2e22;
+}
+
+.announcement-card .this-week-label {
+  color: #a9d9b4;
+}
+
+.announcement-card p:not(.this-week-label) {
+  color: #d7dfd9 !important;
+}
+
+.weekly-verse {
+  margin: 42px 0 0;
+  padding: 36px;
+  text-align: center;
+  background: #eaf1e9;
+  border-left: 5px solid #2e6e49;
+  border-radius: 16px;
+}
+
+.weekly-verse p {
+  max-width: 800px;
+  margin: 0 auto 12px;
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(1.25rem, 3vw, 1.8rem);
+  line-height: 1.55;
+}
+
+.weekly-verse cite {
+  color: #2e6e49;
+  font-style: normal;
+  font-weight: 800;
+}
+
+@media (max-width: 950px) {
+  .this-week-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .this-week-section {
+    padding: 70px 20px;
+  }
+
+  .this-week-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .this-week-card {
+    min-height: auto;
+  }
+
+  .weekly-verse {
+    padding: 28px 22px;
+  }
+}
