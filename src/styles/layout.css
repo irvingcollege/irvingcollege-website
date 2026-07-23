@@ -1,0 +1,63 @@
+.container {
+  width: min(1200px, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+main {
+  min-height: 60vh;
+}
+
+.section-heading {
+  max-width: 700px;
+  margin: 0 auto 45px;
+  text-align: center;
+}
+
+.section-eyebrow {
+  margin-bottom: 8px;
+  color: #0b63ce;
+  font-size: .9rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.section-heading h2 {
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(2rem,4vw,3.2rem);
+  margin-bottom: .75rem;
+}
+
+.section-heading p {
+  color: #52606d;
+}
+
+.primary-button,
+.secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: .9rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 700;
+  transition: .2s;
+}
+
+.primary-button {
+  background: #0b63ce;
+  color: white;
+}
+
+.primary-button:hover {
+  background: #084eaa;
+}
+
+.secondary-button {
+  border: 1px solid #0b63ce;
+  color: #0b63ce;
+}
+
+.secondary-button:hover {
+  background: #0b63ce;
+  color: white;
+}
