@@ -1,35 +1,115 @@
-<section class="sermon-section">
-  <div class="section-container">
-    <div class="sermon-layout">
-      <div class="sermon-video">
-        <div class="sermon-placeholder">
-          <span class="play-button">▶</span>
-          <p>Latest Sermon Video</p>
-        </div>
-      </div>
+<section class="latest-sermon-section">
+  <div class="latest-sermon-container">
+    <div class="latest-sermon-heading">
+      <p class="section-eyebrow">Latest Message</p>
+      <h2>Watch the Latest Sermon</h2>
+      <p>
+        Catch up on the newest message from Irving College Baptist Church.
+      </p>
+    </div>
 
-      <div class="sermon-content">
-        <p class="section-eyebrow">Watch the Latest Message</p>
-
-        <h2>Truth for Everyday Life</h2>
-
-        <p class="sermon-series">Current Sermon Series</p>
-
-        <p>
-          Watch our latest sermon and discover practical biblical truth that
-          can help you grow in your faith throughout the week.
-        </p>
-
-        <div class="sermon-details">
-          <p><strong>Speaker:</strong> Pastor Name</p>
-          <p><strong>Scripture:</strong> Bible Passage</p>
-        </div>
-
-        <div class="sermon-buttons">
-          <a href="/sermons" class="primary-button">Watch Latest Sermon</a>
-          <a href="/sermons" class="secondary-button">View All Sermons</a>
-        </div>
+    <div id="latest-sermon" class="latest-sermon-card">
+      <div class="sermon-loading">
+        Loading the latest sermon...
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  interface SermonData {
+    title: string;
+    publishedAt: string;
+    thumbnail: string;
+    videoId: string;
+    videoUrl: string;
+    embedUrl: string;
+    error?: string;
+  }
+
+  const sermonContainer = document.querySelector<HTMLDivElement>(
+    "#latest-sermon"
+  );
+
+  function formatDate(dateString: string) {
+    return new Intl.DateTimeFormat("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    }).format(new Date(dateString));
+  }
+
+  async function loadLatestSermon() {
+    if (!sermonContainer) return;
+
+    try {
+      const response = await fetch(
+        "/.netlify/functions/latest-sermon"
+      );
+
+      if (!response.ok) {
+        throw new Error("The sermon could not be loaded.");
+      }
+
+      const sermon: SermonData = await response.json();
+
+      if (sermon.error) {
+        throw new Error(sermon.error);
+      }
+
+      sermonContainer.innerHTML = `
+        <div class="latest-sermon-video">
+          <iframe
+            src="${sermon.embedUrl}"
+            title="${sermon.title}"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+
+        <div class="latest-sermon-content">
+          <p class="sermon-label">Latest Sermon</p>
+
+          <h3>${sermon.title}</h3>
+
+          <p class="sermon-speaker">Pastor Ryan</p>
+
+          <p class="sermon-date">
+            ${formatDate(sermon.publishedAt)}
+          </p>
+
+          <a
+            href="${sermon.videoUrl}"
+            class="button"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on YouTube
+          </a>
+        </div>
+      `;
+    } catch (error) {
+      console.error(error);
+
+      sermonContainer.innerHTML = `
+        <div class="sermon-error">
+          <h3>Latest Sermon</h3>
+          <p>
+            We could not load the latest sermon right now.
+          </p>
+          <a
+            href="https://youtube.com/@irvingcollege.church"
+            class="button"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Visit Our YouTube Channel
+          </a>
+        </div>
+      `;
+    }
+  }
+
+  loadLatestSermon();
+</script>
