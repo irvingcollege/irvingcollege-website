@@ -120,3 +120,55 @@ collections:
               - label: "Verse Text"
                 name: "text"
                 widget: "text"
+
+  - name: "staff"
+    label: "Staff"
+    label_singular: "Staff Member"
+    folder: "src/data/staff"
+    create: true
+    extension: "md"
+    format: "frontmatter"
+    slug: "{{fields.order}}-{{slug}}"
+    summary: "{{fields.order}} — {{name}} — {{position}}"
+
+    fields:
+      - label: "Name"
+        name: "name"
+        widget: "string"
+
+      - label: "Position"
+        name: "position"
+        widget: "string"
+
+      - label: "Photo"
+        name: "photo"
+        widget: "image"
+        required: false
+
+      - label: "Email"
+        name: "email"
+        widget: "string"
+        required: false
+
+      - label: "Phone"
+        name: "phone"
+        widget: "string"
+        required: false
+
+      - label: "Biography"
+        name: "body"
+        widget: "markdown"
+        required: false
+
+      - label: "Display Order"
+        name: "order"
+        widget: "number"
+        value_type: "int"
+        min: 1
+        default: 1
+        hint: "Use 1 for the first person, 2 for the second person, and so on."
+
+      - label: "Show on Website"
+        name: "enabled"
+        widget: "boolean"
+        default: true
