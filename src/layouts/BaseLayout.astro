@@ -26,9 +26,8 @@ import "../styles/global.css";
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <title>{title}</title>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
 
   <body>
@@ -39,9 +38,19 @@ import "../styles/global.css";
     </main>
 
     <Footer />
-    <script is:inline>
+  <script is:inline>
   if (window.netlifyIdentity) {
     window.netlifyIdentity.on("init", (user) => {
+      const hash = window.location.hash;
+
+      if (
+        hash.includes("invite_token") ||
+        hash.includes("recovery_token") ||
+        hash.includes("confirmation_token")
+      ) {
+        window.netlifyIdentity.open();
+      }
+
       if (!user) {
         window.netlifyIdentity.on("login", () => {
           window.location.href = "/admin/";
