@@ -1,120 +1,100 @@
 <section class="latest-sermon-section">
   <div class="latest-sermon-container">
     <div class="latest-sermon-heading">
-      <p class="section-eyebrow">Latest Message</p>
-      <h2>Watch the Latest Sermon</h2>
-      <p>
-        Catch up on the newest message from Irving College Baptist Church.
-      </p>
+      <p class="section-eyebrow">Worship Online</p>
+      <h2 id="worship-heading">Watch Worship</h2>
+      <p>Join us live or watch the most recent service from Irving College Baptist Church.</p>
     </div>
-
-    <div id="latest-sermon" class="latest-sermon-card">
-      <div class="sermon-loading">
-        Loading the latest sermon...
-      </div>
+    <div id="latest-sermon" class="latest-sermon-card" aria-live="polite">
+      <div class="sermon-loading">Loading worship video...</div>
     </div>
   </div>
 </section>
 
 <script>
-  interface SermonData {
-    title: string;
-    publishedAt: string;
-    thumbnail: string;
-    videoId: string;
-    videoUrl: string;
-    embedUrl: string;
-    error?: string;
+  type Sermon = { title: string; date: string; url: string };
+  type VideoFeed = { online: boolean; liveUrl: string; latestSermon: Sermon | null; statusAvailable: boolean };
+  const container = document.querySelector<HTMLDivElement>("#latest-sermon");
+  const heading = document.querySelector<HTMLHeadingElement>("#worship-heading");
+  let currentKey = "";
+
+  function showVideo(feed: VideoFeed) {
+    if (!container) return;
+    const key = feed.online ? "live" : "recorded:" + (feed.latestSermon?.url || "none");
+    if (key === currentKey) return;
+    currentKey = key;
+    container.replaceChildren();
+    const frame = document.createElement("div");
+    frame.className = "latest-sermon-video";
+    const content = document.createElement("div");
+    content.className = "latest-sermon-content";
+    const label = document.createElement("p");
+    label.className = "sermon-label";
+    const title = document.createElement("h3");
+    const info = document.createElement("p");
+    const link = document.createElement("a");
+    link.className = "button";
+
+    if (feed.online) {
+      heading && (heading.textContent = "We're Live!");
+      const iframe = document.createElement("iframe");
+      iframe.src = feed.liveUrl;
+      iframe.title = "Irving College Baptist Church livestream";
+      iframe.allow = "autoplay; fullscreen; picture-in-picture";
+      iframe.allowFullscreen = true;
+      iframe.loading = "lazy";
+      frame.append(iframe);
+      label.textContent = "● LIVE NOW";
+      title.textContent = "Join Us for Live Worship";
+      info.textContent = "Welcome to Irving College Baptist Church.";
+      link.href = "https://live.irvingcollege.church";
+      link.textContent = "Open Livestream";
+    } else if (feed.latestSermon) {
+      heading && (heading.textContent = "Watch Our Latest Service");
+      const video = document.createElement("video");
+      video.src = feed.latestSermon.url;
+      video.controls = true;
+      video.preload = "metadata";
+      video.playsInline = true;
+      frame.append(video);
+      label.textContent = "Latest Recording";
+      title.textContent = feed.latestSermon.title;
+      info.textContent = feed.latestSermon.date;
+      link.href = feed.latestSermon.url;
+      link.textContent = "Open Recording";
+    } else {
+      heading && (heading.textContent = "Watch Worship");
+      title.textContent = "Worship video temporarily unavailable";
+      info.textContent = "Please check back soon.";
+      link.href = "https://live.irvingcollege.church";
+      link.textContent = "Visit Our Livestream";
+    }
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    content.append(label, title, info, link);
+    if (frame.childElementCount) container.append(frame);
+    container.append(content);
   }
 
-  const sermonContainer = document.querySelector<HTMLDivElement>(
-    "#latest-sermon"
-  );
-
-  function formatDate(dateString: string) {
-    return new Intl.DateTimeFormat("en-US", {
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    }).format(new Date(dateString));
-  }
-
-  async function loadLatestSermon() {
-    if (!sermonContainer) return;
-
+  async function refresh() {
     try {
-      const response = await fetch(
-        "/.netlify/functions/latest-sermon"
-      );
-
-      if (!response.ok) {
-        throw new Error("The sermon could not be loaded.");
-      }
-
-      const data = await response.json();
-const sermon: SermonData = data.latestSermon;
-
-      if (data.error) {
-  throw new Error(data.error);
-}
-
-if (!sermon) {
-  throw new Error("No sermon was returned.");
-}
-
-      sermonContainer.innerHTML = `
-        <div class="latest-sermon-video">
-          <iframe
-            src="${sermon.embedUrl}"
-            title="${sermon.title}"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-          ></iframe>
-        </div>
-
-        <div class="latest-sermon-content">
-          <p class="sermon-label">Latest Sermon</p>
-
-          <h3>${sermon.title}</h3>
-
-          <p class="sermon-speaker">Pastor Ryan</p>
-
-          <p class="sermon-date">
-            ${formatDate(sermon.publishedAt)}
-          </p>
-
-          <a
-            href="${sermon.videoUrl}"
-            class="button"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Watch on YouTube
-          </a>
-        </div>
-      `;
+      const response = await fetch("/.netlify/functions/latest-sermon", { cache: "no-store" });
+      if (!response.ok) throw new Error("Video feed unavailable");
+      const feed: VideoFeed = await response.json();
+      showVideo(feed);
     } catch (error) {
-      console.error(error);
-
-      sermonContainer.innerHTML = `
-        <div class="sermon-error">
-          <h3>Latest Sermon</h3>
-          <p>
-            We could not load the latest sermon right now.
-          </p>
-          <a
-            href="https://youtube.com/@irvingcollege.church"
-            class="button"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Visit Our YouTube Channel
-          </a>
-        </div>
-      `;
+      console.error("Unable to refresh worship video", error);
+      if (!currentKey && container) container.textContent = "Worship video temporarily unavailable. Please check back soon.";
     }
   }
-
-  loadLatestSermon();
+  refresh();
+  window.setInterval(refresh, 30000);
 </script>
+
+<style>
+  .latest-sermon-video { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #111; overflow: hidden; border-radius: 12px; }
+  .latest-sermon-video :global(iframe), .latest-sermon-video :global(video) { width: 100%; height: 100%; display: block; border: 0; }
+  .latest-sermon-content { padding: 20px 0; }
+  .latest-sermon-content :global(h3) { margin: 8px 0; }
+  .latest-sermon-content :global(.button) { display: inline-block; margin-top: 14px; padding: 11px 20px; border-radius: 8px; background: #2e6e49; color: white; text-decoration: none; }
+</style>
