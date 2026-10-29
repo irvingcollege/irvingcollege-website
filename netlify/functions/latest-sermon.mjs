@@ -1,133 +1,41 @@
-const CHANNEL_ID = "UCzvfQahUozA6xOzMd3uQrCQ";
-const NUMBER_OF_SERMONS = 50;
+const ORIGIN = "https://live.irvingcollege.church";
+const headers = { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store, max-age=0" };
 
-function findDescriptionField(description, fieldName) {
-  if (!description) return "";
-
-  const line = description
-    .split("\n")
-    .find((item) =>
-      item.trim().toLowerCase().startsWith(`${fieldName.toLowerCase()}:`)
-    );
-
-  if (!line) return "";
-
-  return line.substring(line.indexOf(":") + 1).trim();
+async function getJson(path) {
+  const response = await fetch(ORIGIN + path, {
+    headers: { Accept: "application/json" },
+    signal: AbortSignal.timeout(8000),
+    cache: "no-store"
+  });
+  if (!response.ok) throw new Error("Video service returned " + response.status);
+  return response.json();
 }
 
 export default async () => {
-  const apiKey = Netlify.env.get("YOUTUBE_API_KEY");
+  const [statusResult, catalogResult] = await Promise.allSettled([
+    getJson("/api/status"),
+    getJson("/sermons/catalog.json")
+  ]);
 
-  if (!apiKey) {
-    return new Response(
-      JSON.stringify({
-        error: "YouTube API key is missing.",
-      }),
-      {
-        status: 500,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-  }
+  const online = statusResult.status === "fulfilled" && statusResult.value.online === true;
+  const sermons = catalogResult.status === "fulfilled" && Array.isArray(catalogResult.value)
+    ? catalogResult.value.filter((item) => {
+        if (!item || typeof item.title !== "string" || typeof item.date !== "string" || typeof item.url !== "string") return false;
+        try {
+          const url = new URL(item.url);
+          return url.origin === ORIGIN && url.pathname.startsWith("/sermons/") && url.pathname.endsWith(".mp4");
+        } catch { return false; }
+      }).sort((a, b) => b.date.localeCompare(a.date))
+    : [];
 
-  try {
-    const channelResponse = await fetch(
-      `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${apiKey}`
-    );
+  if (statusResult.status === "rejected") console.error("Owncast status unavailable:", statusResult.reason);
+  if (catalogResult.status === "rejected") console.error("Sermon catalog unavailable:", catalogResult.reason);
 
-    if (!channelResponse.ok) {
-      throw new Error("Unable to retrieve YouTube channel information.");
-    }
-
-    const channelData = await channelResponse.json();
-
-    const uploadsPlaylistId =
-      channelData.items?.[0]?.contentDetails?.relatedPlaylists?.uploads;
-
-    if (!uploadsPlaylistId) {
-      throw new Error("The channel uploads playlist could not be found.");
-    }
-
-    const playlistResponse = await fetch(
-      `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${uploadsPlaylistId}&maxResults=${NUMBER_OF_SERMONS}&key=${apiKey}`
-    );
-
-    if (!playlistResponse.ok) {
-      throw new Error("Unable to retrieve sermons from YouTube.");
-    }
-
-    const playlistData = await playlistResponse.json();
-
-    const sermons = (playlistData.items || [])
-      .map((item) => {
-        const video = item.snippet;
-        const videoId = video?.resourceId?.videoId;
-
-        if (!video || !videoId) return null;
-
-        const description = video.description || "";
-
-        return {
-          title: video.title,
-          description,
-          publishedAt: video.publishedAt,
-          thumbnail:
-            video.thumbnails?.maxres?.url ||
-            video.thumbnails?.high?.url ||
-            video.thumbnails?.medium?.url ||
-            video.thumbnails?.default?.url,
-          videoId,
-          videoUrl: `https://www.youtube.com/watch?v=${videoId}`,
-          embedUrl: `https://www.youtube.com/embed/${videoId}`,
-          scripture:
-            findDescriptionField(description, "Scripture") ||
-            "Scripture not listed",
-          speaker:
-            findDescriptionField(description, "Speaker") ||
-            "Pastor Ryan",
-          series:
-            findDescriptionField(description, "Series") ||
-            "Standalone Messages",
-          week: findDescriptionField(description, "Week"),
-        };
-      })
-      .filter(Boolean);
-
-    if (sermons.length === 0) {
-      throw new Error("No sermon videos were found.");
-    }
-
-    return new Response(
-      JSON.stringify({
-        latestSermon: sermons[0],
-        sermons,
-      }),
-      {
-        status: 200,
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "public, max-age=900",
-        },
-      }
-    );
-  } catch (error) {
-    console.error(error);
-
-    return new Response(
-      JSON.stringify({
-        error:
-          error instanceof Error
-            ? error.message
-            : "An unexpected error occurred.",
-      }),
-      {
-        status: 500,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-  }
+  return new Response(JSON.stringify({
+    online,
+    liveUrl: ORIGIN + "/embed/video",
+    latestSermon: sermons[0] || null,
+    sermons,
+    statusAvailable: statusResult.status === "fulfilled"
+  }), { status: statusResult.status === "rejected" && catalogResult.status === "rejected" ? 503 : 200, headers });
 };
